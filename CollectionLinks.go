@@ -14,14 +14,14 @@ type CollectionLinks struct {
 	lastRel  string
 	selfRel  string
 	ref      string
-	Links    map[string]Href
+	Links    map[string]Link
 }
 
 func NewCollectionLinks(collectionRef string) *CollectionLinks {
 	return &CollectionLinks{"first", "next", "previous", "last", "self", collectionRef, nil}
 }
 
-func (c CollectionLinks) GetLinks(page Page, r *http.Request) (map[string]Href, error) {
+func (c CollectionLinks) GetLinks(page Page, r *http.Request) (map[string]Link, error) {
 
 	if page.Page < 1 || page.Size < 0 || page.Total < 0 {
 		return nil, errors.New("Page invalid")
@@ -48,11 +48,11 @@ func (c CollectionLinks) GetLinks(page Page, r *http.Request) (map[string]Href, 
 	return c.Links, nil
 }
 
-func (c CollectionLinks) add(link Link) map[string]Href {
+func (c CollectionLinks) add(link Link) map[string]Link {
 	if len(c.Links) < 1 || c.Links == nil {
-		c.Links = map[string]Href{link.Rel: Href{link.Href}}
+		c.Links = map[string]Link{link.Rel: Link{Href: link.Href}}
 	} else {
-		c.Links[link.Rel] = Href{link.Href}
+		c.Links[link.Rel] = Link{Href: link.Href}
 	}
 	return c.Links
 }

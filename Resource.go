@@ -6,7 +6,6 @@ type RestResource interface {
 	EmbedResources(resources []RestResource, resourceName string)
 }
 
-
 type ResourceCollection struct {
 	Page Page `json:"_page,omitempty"`
 	Resource
