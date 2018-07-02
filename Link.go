@@ -11,13 +11,13 @@ type Link struct {
 	Rel       string `json:"-"`
 	Method    string `json:"method,omitempty"`
 	Required  bool   `json:"required,omitempty"`
-	SchemaRef Href   `json:"schemaRef,omitempty"`
+	SchemaRef *Href   `json:"schemaRef,omitempty"`
 }
 
 func (l *Link) MakeInteraction(method string, required bool, schema Href) {
 	l.Method = method
 	l.Required = required
-	l.SchemaRef = schema
+	l.SchemaRef = &schema
 }
 
 func (l Link) From(rel string, ref string, r *http.Request) Link {
